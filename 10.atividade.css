@@ -1,4 +1,4 @@
-* {
+* {* {
     box-sizing: border-box;
 }
 
@@ -62,8 +62,8 @@ canvas {
     display: flex;
     justify-content: center;
     align-items: center;
-    gap: 50px;
-    margin-top: 15px;
+    gap: 100px;
+    margin-top: 25px;
     touch-action: none;
     user-select: none;
 }
@@ -102,18 +102,18 @@ canvas {
 }
 
 #atirar {
-    width: 100px !important;
-    font-size: 16px !important;
+    width: 120px !important;
+    height: 70px !important;
+    font-size: 18px !important;
 }
 
 .instrucoes {
-    margin-top: 15px;
+    margin-top: 20px;
     color: rgb(150, 150, 150);
     font-size: 14px;
 }
 
 @media (max-width: 600px) {
-
     body {
         padding: 10px 5px;
     }
@@ -128,7 +128,8 @@ canvas {
     }
 
     #controles {
-        gap: 25px;
+        gap: 70px;
+        margin-top: 25px;
     }
 
     #controles button {
@@ -137,7 +138,9 @@ canvas {
     }
 
     #atirar {
-        width: 90px !important;
+        width: 120px !important;
+        height: 65px !important;
+        font-size: 16px !important;
     }
 
     .instrucoes {
