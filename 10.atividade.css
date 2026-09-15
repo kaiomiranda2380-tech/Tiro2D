@@ -1,53 +1,48 @@
-:root {
-    --verde: #66ff66;
-    --ciano: #00d9ff;
-}
-
 * {
-    margin: 0;
-    padding: 0;
     box-sizing: border-box;
 }
 
 body {
-    background: radial-gradient(circle at center, #1a2e1a 0%, #111 70%);
+    margin: 0;
+    padding: 20px 10px;
+    min-height: 100vh;
+    background: rgb(16, 24, 32);
     color: white;
     font-family: Arial, sans-serif;
-    min-height: 100vh;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
+    text-align: center;
 }
 
-#hud {
+h1 {
+    margin: 5px 0 15px;
+    color: rgb(0, 217, 255);
+}
+
+#informacoes {
     display: flex;
+    justify-content: center;
     gap: 30px;
     margin-bottom: 15px;
-    font-size: 20px;
-    font-weight: bold;
-    background: #1e1e1e;
-    padding: 10px 25px;
-    border-radius: 8px;
-    border: 1px solid var(--verde);
-    box-shadow: 0 0 12px rgba(102, 255, 102, 0.3), 0 0 20px rgba(0, 217, 255, 0.15);
-    color: var(--verde);
+    font-size: 18px;
 }
 
-#hud span {
-    color: var(--ciano);
-}
-
-#container {
-    position: relative;
+#informacoes strong {
+    color: rgb(0, 217, 255);
 }
 
 #jogo {
-    background: #000;
-    border: 2px solid var(--ciano);
-    border-radius: 8px;
+    position: relative;
+    width: 800px;
+    max-width: 100%;
+    margin: auto;
+}
+
+canvas {
     display: block;
-    box-shadow: 0 0 15px rgba(0, 217, 255, 0.4), inset 0 0 10px rgba(102, 255, 102, 0.1);
+    width: 100%;
+    height: auto;
+    background: black;
+    border: 2px solid rgb(0, 217, 255);
+    border-radius: 8px;
 }
 
 #mensagem {
@@ -55,22 +50,98 @@ body {
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
-    font-size: 60px;
+    width: 100%;
+    margin: 0;
+    color: white;
+    font-size: 28px;
     font-weight: bold;
-    color: var(--verde);
-    text-shadow: 0 0 10px var(--verde), 0 0 20px var(--ciano), 3px 3px 0 #000;
-    pointer-events: none;
+    text-shadow: 0 0 10px black;
+}
+
+#controles {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 50px;
+    margin-top: 15px;
+    touch-action: none;
+    user-select: none;
+}
+
+#controles button {
+    width: 60px;
+    height: 60px;
+    border: 2px solid rgb(0, 217, 255);
+    border-radius: 10px;
+    background: rgb(29, 45, 58);
+    color: rgb(0, 217, 255);
+    font-size: 24px;
+    font-weight: bold;
+    cursor: pointer;
+    touch-action: none;
+    user-select: none;
+}
+
+#controles button:active {
+    background: rgb(0, 217, 255);
+    color: rgb(16, 24, 32);
+}
+
+.movimento {
     text-align: center;
 }
 
-footer p {
-    margin-top: 15px;
-    color: #888;
+.movimento > button {
+    display: block;
+    margin: 0 auto 5px;
 }
 
-footer p::selection,
-#hud::selection {
-    background: var(--ciano);
-    color: #000;
+.movimento div {
+    display: flex;
+    gap: 5px;
+}
+
+#atirar {
+    width: 100px !important;
+    font-size: 16px !important;
+}
+
+.instrucoes {
+    margin-top: 15px;
+    color: rgb(150, 150, 150);
+    font-size: 14px;
+}
+
+@media (max-width: 600px) {
+
+    body {
+        padding: 10px 5px;
+    }
+
+    h1 {
+        font-size: 24px;
+    }
+
+    #informacoes {
+        gap: 15px;
+        font-size: 14px;
+    }
+
+    #controles {
+        gap: 25px;
+    }
+
+    #controles button {
+        width: 55px;
+        height: 55px;
+    }
+
+    #atirar {
+        width: 90px !important;
+    }
+
+    .instrucoes {
+        font-size: 12px;
+    }
 }
 
