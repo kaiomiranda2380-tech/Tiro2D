@@ -1,27 +1,41 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
+
 <head>
-    <link rel="stylesheet" href="10.atividade.css">
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Space Game</title>
+    <title>Jogo da Nave</title>
+    <link rel="stylesheet" href="10.atividade.css">
 </head>
+
 <body>
 
-    <header id="hud">
-        <div>Pontos: <span id="pontos">0</span></div>
-        <div>Vidas: <span id="vidas">3</span></div>
-        <div>Fase: <span id="fase">1</span></div>
-    </header>
+    <h1>Jogo da Nave</h1>
 
-    <main id="container">
-        <canvas id="jogo" width="800" height="600"></canvas>
-        <div id="mensagem"></div>
-    </main>
+    <div id="informacoes">
+        <span>Pontos: <strong id="pontos">0</strong></span>
+        <span>Vidas: <strong id="vidas">3</strong></span>
+        <span>Fase: <strong id="fase">1</strong></span>
+    </div>
+    <div id="jogo">
+        <canvas id="canvas" width="800" height="600"></canvas>
+        <p id="mensagem"></p>
+    </div>
+    <div id="controles">
+        <div class="movimento">
+            <button id="cima">▲</button>
+            <div>
+                <button id="esquerda">◀</button>
+                <button id="baixo">▼</button>
+                <button id="direita">▶</button>
+            </div>
+        </div>
+        <button id="atirar">ATIRAR</button>
+    </div>
 
-    <footer>
-        <p>Use WASD ou setas para mover | ESPAÇO para atirar | R para reiniciar</p>
-    </footer>
+    <p class="instrucoes">
+        PC: WASD ou setas para mover | Espaço para atirar | R para reiniciar
+    </p>
 
     <script src="10.atividade.js"></script>
 </body>
