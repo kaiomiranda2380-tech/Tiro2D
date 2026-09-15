@@ -1,4 +1,4 @@
-const canvas = document.getElementById("jogo");
+const canvas = document.getElementById("canvas");
 const ctx = canvas.getContext("2d");
 
 const pontosTexto = document.getElementById("pontos");
@@ -58,7 +58,53 @@ document.addEventListener("keyup", (e) => {
     teclas[e.key] = false;
 });
 
+function controlarBotao(botao, tecla) {
+    botao.addEventListener("pointerdown", (e) => {
+        e.preventDefault();
+        teclas[tecla] = true;
+    });
+
+    botao.addEventListener("pointerup", (e) => {
+        e.preventDefault();
+        teclas[tecla] = false;
+    });
+
+    botao.addEventListener("pointerleave", () => {
+        teclas[tecla] = false;
+    });
+
+    botao.addEventListener("pointercancel", () => {
+        teclas[tecla] = false;
+    });
+}
+
+controlarBotao(
+    document.getElementById("cima"),
+    "ArrowUp"
+);
+
+controlarBotao(
+    document.getElementById("baixo"),
+    "ArrowDown"
+);
+
+controlarBotao(
+    document.getElementById("esquerda"),
+    "ArrowLeft"
+);
+
+controlarBotao(
+    document.getElementById("direita"),
+    "ArrowRight"
+);
+
+controlarBotao(
+    document.getElementById("atirar"),
+    " "
+);
+
 function moverNave() {
+
     if (teclas.ArrowLeft || teclas.a || teclas.A) {
         nave.x -= nave.velocidade;
     }
@@ -87,6 +133,11 @@ function moverNave() {
 }
 
 function atirar() {
+
+    if (!jogoAtivo) {
+        return;
+    }
+
     tiros.push({
         x: nave.x + nave.largura / 2 - 3,
         y: nave.y,
@@ -96,8 +147,24 @@ function atirar() {
     });
 }
 
+function controlarTiros() {
+
+    if (!teclas[" "]) {
+        return;
+    }
+
+    const agora = Date.now();
+
+    if (agora - ultimoTiro >= 120) {
+        atirar();
+        ultimoTiro = agora;
+    }
+}
+
 function atualizarTiros() {
+
     for (let i = tiros.length - 1; i >= 0; i--) {
+
         const tiro = tiros[i];
 
         tiro.y -= tiro.velocidade;
@@ -109,6 +176,7 @@ function atualizarTiros() {
 }
 
 function desenharTiros() {
+
     ctx.fillStyle = "#66ff66";
 
     tiros.forEach((tiro) => {
@@ -122,6 +190,7 @@ function desenharTiros() {
 }
 
 function criarInimigo() {
+
     inimigos.push({
         x: Math.random() * (canvas.width - 50),
         y: -50,
@@ -132,7 +201,9 @@ function criarInimigo() {
 }
 
 function atualizarInimigos() {
+
     for (let i = inimigos.length - 1; i >= 0; i--) {
+
         const inimigo = inimigos[i];
 
         inimigo.y += inimigo.velocidade;
@@ -143,7 +214,21 @@ function atualizarInimigos() {
     }
 }
 
+function controlarInimigos() {
+
+    const agora = Date.now();
+
+    if (
+        agora - ultimoInimigo >=
+        intervaloInimigos[fase]
+    ) {
+        criarInimigo();
+        ultimoInimigo = agora;
+    }
+}
+
 function criarExplosao(x, y) {
+
     explosoes.push({
         x,
         y,
@@ -153,18 +238,22 @@ function criarExplosao(x, y) {
 }
 
 function atualizarExplosoes() {
+
     for (let i = explosoes.length - 1; i >= 0; i--) {
-        const explosao = explosoes[i];
 
-        explosao.tempo++;
+        explosoes[i].tempo++;
 
-        if (explosao.tempo >= explosao.duracao) {
+        if (
+            explosoes[i].tempo >=
+            explosoes[i].duracao
+        ) {
             explosoes.splice(i, 1);
         }
     }
 }
 
 function verificarColisao(a, b) {
+
     return (
         a.x < b.x + b.largura &&
         a.x + a.largura > b.x &&
@@ -174,7 +263,9 @@ function verificarColisao(a, b) {
 }
 
 function verificarColisoes() {
+
     for (let i = tiros.length - 1; i >= 0; i--) {
+
         for (let j = inimigos.length - 1; j >= 0; j--) {
 
             if (!verificarColisao(tiros[i], inimigos[j])) {
@@ -190,6 +281,7 @@ function verificarColisoes() {
             inimigos.splice(j, 1);
 
             pontos++;
+
             pontosTexto.textContent = pontos;
 
             atualizarFase();
@@ -203,6 +295,7 @@ function verificarColisoes() {
     }
 
     for (let i = inimigos.length - 1; i >= 0; i--) {
+
         if (!verificarColisao(nave, inimigos[i])) {
             continue;
         }
@@ -219,6 +312,7 @@ function verificarColisoes() {
 }
 
 function atualizarFase() {
+
     if (pontos >= 75) {
         fase = 4;
     } else if (pontos >= 50) {
@@ -233,11 +327,13 @@ function atualizarFase() {
 }
 
 function perderVida() {
+
     if (!jogoAtivo) {
         return;
     }
 
     vidas--;
+
     vidasTexto.textContent = vidas;
 
     if (vidas <= 0) {
@@ -246,16 +342,23 @@ function perderVida() {
 }
 
 function gameOver() {
+
     jogoAtivo = false;
-    mensagem.textContent = "GAME OVER - Aperte R";
+
+    mensagem.textContent =
+        "GAME OVER - Aperte R";
 }
 
 function vencerJogo() {
+
     jogoAtivo = false;
-    mensagem.textContent = "VOCÊ VENCEU! - Aperte R";
+
+    mensagem.textContent =
+        "VOCÊ VENCEU! - Aperte R";
 }
 
 function reiniciarJogo() {
+
     pontos = 0;
     vidas = 3;
     fase = 1;
@@ -277,31 +380,48 @@ function reiniciarJogo() {
     mensagem.textContent = "";
 }
 
-function controlarTiros() {
-    if (!teclas[" "]) {
-        return;
-    }
+function desenharNave() {
 
-    const agora = Date.now();
-
-    if (agora - ultimoTiro >= 120) {
-        atirar();
-        ultimoTiro = agora;
-    }
+    ctx.drawImage(
+        imgNave,
+        nave.x,
+        nave.y,
+        nave.largura,
+        nave.altura
+    );
 }
 
-function controlarInimigos() {
-    const agora = Date.now();
+function desenharInimigos() {
 
-    if (
-        agora - ultimoInimigo >= intervaloInimigos[fase]
-    ) {
-        criarInimigo();
-        ultimoInimigo = agora;
-    }
+    inimigos.forEach((inimigo) => {
+
+        ctx.drawImage(
+            imgInimigo,
+            inimigo.x,
+            inimigo.y,
+            inimigo.largura,
+            inimigo.altura
+        );
+    });
+}
+
+function desenharExplosoes() {
+
+    ctx.font = "35px Arial";
+    ctx.textAlign = "center";
+
+    explosoes.forEach((explosao) => {
+
+        ctx.fillText(
+            "💥",
+            explosao.x + 25,
+            explosao.y + 30
+        );
+    });
 }
 
 function atualizar() {
+
     if (!jogoAtivo) {
         return;
     }
@@ -315,42 +435,8 @@ function atualizar() {
     controlarInimigos();
 }
 
-function desenharNave() {
-    ctx.drawImage(
-        imgNave,
-        nave.x,
-        nave.y,
-        nave.largura,
-        nave.altura
-    );
-}
-
-function desenharInimigos() {
-    inimigos.forEach((inimigo) => {
-        ctx.drawImage(
-            imgInimigo,
-            inimigo.x,
-            inimigo.y,
-            inimigo.largura,
-            inimigo.altura
-        );
-    });
-}
-
-function desenharExplosoes() {
-    ctx.font = "35px Arial";
-    ctx.textAlign = "center";
-
-    explosoes.forEach((explosao) => {
-        ctx.fillText(
-            "💥",
-            explosao.x + 25,
-            explosao.y + 30
-        );
-    });
-}
-
 function desenhar() {
+
     ctx.clearRect(
         0,
         0,
@@ -365,6 +451,7 @@ function desenhar() {
 }
 
 function loop() {
+
     atualizar();
     desenhar();
 
