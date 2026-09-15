@@ -15,7 +15,7 @@ let jogoAtivo = true;
 const nave = { x: 375, y: 520, largura: 60, altura: 60, velocidade: 5 };
 
 const naveImg = new Image();
-naveImg.src = "nave_transparente_final.png";
+naveImg.src = "img/nave_transparente_final.png";
 
 const teclas = {};
 const tiros = [];
@@ -91,13 +91,19 @@ function atualizarInimigos() {
     }
 }
 
+const imgInimigo = new Image();
+imgInimigo.src = "img/inimigo.png";
+
 function desenharInimigos() {
-    ctx.font = "45px Arial";
-    ctx.textAlign = "center";
-    ctx.textBaseline = "middle";
-    inimigos.forEach(inimigo => {
-        ctx.fillText("👾", inimigo.x + inimigo.largura / 2, inimigo.y + inimigo.altura / 2);
-    });
+    for (const inimigo of inimigos) {
+        ctx.drawImage(
+            imgInimigo,
+            inimigo.x,
+            inimigo.y,
+            inimigo.largura,
+            inimigo.altura
+        );
+    }
 }
 
 function colidiu(a, b) {
