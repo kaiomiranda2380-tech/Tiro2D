@@ -12,7 +12,7 @@ let fase = 1;
 const pontuacaoMaxima = 100;
 let jogoAtivo = true;
 
-const nave = { x: 375, y: 520, largura: 60, altura: 60, velocidade: 5 }; // aumentei pra 60 pra ficar bonita
+const nave = { x: 375, y: 520, largura: 60, altura: 60, velocidade: 5 };
 
 const naveImg = new Image();
 naveImg.src = "nave_transparente_final.png";
@@ -28,15 +28,13 @@ document.addEventListener("keydown", (e) => {
     teclas[e.key] = true;
     teclas[e.code] = true;
     if (e.code === "Space") {
-        e.preventDefault(); 
+        e.preventDefault();
     }
 });
 document.addEventListener("keyup", (e) => {
     teclas[e.key] = false;
     teclas[e.code] = false;
 });
-
-document.addEventListener("keyup", (e) => teclas[e.key] = false);
 
 function desenharNave() {
     if (naveImg.complete && naveImg.naturalWidth!== 0) {
@@ -86,9 +84,9 @@ function criarInimigo() {
 function atualizarInimigos() {
     for (let i = inimigos.length - 1; i >= 0; i--) {
         inimigos[i].y += inimigos[i].velocidade;
+        
         if (inimigos[i].y > canvas.height) {
             inimigos.splice(i, 1);
-            perderVida();
         }
     }
 }
@@ -119,6 +117,15 @@ function verificarColisoes() {
                 if (pontos >= pontuacaoMaxima) vencerJogo();
                 break;
             }
+        }
+    }
+}
+
+function verificarColisaoNave() {
+    for (let i = inimigos.length - 1; i >= 0; i--) {
+        if (colidiu(nave, inimigos[i])) {
+            inimigos.splice(i, 1);
+            perderVida();
         }
     }
 }
@@ -160,7 +167,7 @@ function controlarInimigos() {
 function atualizar() {
     if (!jogoAtivo) return;
     moverNave();
-    
+
     const agora = Date.now();
     if ((teclas[" "] || teclas["Space"] || teclas["Spacebar"]) && agora - ultimoTiro >= 150) {
         atirar();
@@ -170,6 +177,7 @@ function atualizar() {
     atualizarTiros();
     atualizarInimigos();
     verificarColisoes();
+    verificarColisaoNave();
     controlarInimigos();
 }
 
