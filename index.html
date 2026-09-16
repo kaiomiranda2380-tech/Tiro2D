@@ -2,41 +2,54 @@
 <html lang="pt-BR">
 
 <head>
+    <link rel="stylesheet" href="10.atividade.css">
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Jogo da Nave</title>
-    <link rel="stylesheet" href="10.atividade.css">
 </head>
-
 <body>
+    <main>
+        <h1>Jogo da Nave</h1>
+        <div id="informacoes">
+            <div class="informacao">
+                <span>Pontos</span>
+                <strong id="pontos">0</strong>
+            </div>
 
-    <h1>Jogo da Nave</h1>
+            <div class="informacao">
+                <span>Vidas</span>
+                <strong id="vidas">3</strong>
+            </div>
 
-    <div id="informacoes">
-        <span>Pontos: <strong id="pontos">0</strong></span>
-        <span>Vidas: <strong id="vidas">3</strong></span>
-        <span>Fase: <strong id="fase">1</strong></span>
-    </div>
-    <div id="jogo">
-        <canvas id="canvas" width="800" height="600"></canvas>
-        <p id="mensagem"></p>
-    </div>
-    <div id="controles">
-        <div class="movimento">
-            <button id="cima">▲</button>
-            <div>
-                <button id="esquerda">◀</button>
-                <button id="baixo">▼</button>
-                <button id="direita">▶</button>
+            <div class="informacao">
+                <span>Fase</span>
+                <strong id="fase">1</strong>
+            </div>
+
+        </div>
+        <div id="jogo">
+            <canvas id="canvas" width="800" height="600"></canvas>
+            <div id="fimJogo">
+                <p id="mensagem"></p>
+                <button id="reset">RESET</button>
             </div>
         </div>
-        <button id="atirar">ATIRAR</button>
-    </div>
-
-    <p class="instrucoes">
-        PC: WASD ou setas para mover | Espaço para atirar | R para reiniciar
-    </p>
-
+        <div id="controles">
+            <div class="movimento">
+                <button id="cima">▲</button>
+                <div class="linha-botoes">
+                    <button id="esquerda">◀</button>
+                    <button id="baixo">▼</button>
+                    <button id="direita">▶</button>
+                </div>
+            </div>
+            <button id="atirar">ATIRAR</button>
+        </div>
+        <p class="instrucoes">
+            PC: WASD ou setas para mover<br>
+            Celular: use os botões para jogar
+        </p>
+    </main>
     <script src="10.atividade.js"></script>
 </body>
 </html>
