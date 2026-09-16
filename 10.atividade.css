@@ -1,85 +1,202 @@
-* {* {
+* {
     box-sizing: border-box;
 }
 
 body {
     margin: 0;
-    padding: 20px 10px;
     min-height: 100vh;
+    padding: 20px 10px;
+
     background: rgb(16, 24, 32);
     color: white;
+
     font-family: Arial, sans-serif;
     text-align: center;
 }
 
+main {
+    width: 100%;
+    max-width: 850px;
+    margin: 0 auto;
+
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
 h1 {
-    margin: 5px 0 15px;
+    margin: 5px 0 20px;
+
     color: rgb(0, 217, 255);
 }
 
 #informacoes {
     display: flex;
     justify-content: center;
-    gap: 30px;
+    align-items: center;
+
+    gap: 40px;
+
     margin-bottom: 15px;
-    font-size: 18px;
 }
 
-#informacoes strong {
+.informacao {
+    min-width: 90px;
+
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+
+    padding: 8px 15px;
+
+    background: rgb(23, 35, 46);
+    border: 1px solid rgb(29, 45, 58);
+    border-radius: 8px;
+}
+
+.informacao span {
+    font-size: 14px;
+    color: rgb(150, 150, 150);
+}
+
+.informacao strong {
+    margin-top: 3px;
+
+    font-size: 20px;
     color: rgb(0, 217, 255);
 }
 
 #jogo {
     position: relative;
+
     width: 800px;
     max-width: 100%;
-    margin: auto;
+
+    margin: 0 auto;
 }
 
 canvas {
     display: block;
+
     width: 100%;
     height: auto;
+
     background: black;
+
     border: 2px solid rgb(0, 217, 255);
     border-radius: 8px;
 }
 
-#mensagem {
+#fimJogo {
     position: absolute;
+
     top: 50%;
     left: 50%;
+
     transform: translate(-50%, -50%);
+
     width: 100%;
-    margin: 0;
+
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+
+    pointer-events: none;
+}
+
+#mensagem {
+    margin: 0 0 25px;
+
     color: white;
-    font-size: 28px;
+
+    font-size: 30px;
     font-weight: bold;
+
     text-shadow: 0 0 10px black;
 }
 
+#reset {
+    width: 130px;
+    height: 45px;
+
+    display: none;
+
+    border: 2px solid rgb(0, 217, 255);
+    border-radius: 10px;
+
+    background: rgb(29, 45, 58);
+    color: rgb(0, 217, 255);
+
+    font-size: 16px;
+    font-weight: bold;
+
+    cursor: pointer;
+
+    pointer-events: auto;
+    touch-action: manipulation;
+}
+
+#reset:active {
+    background: rgb(0, 217, 255);
+    color: rgb(16, 24, 32);
+}
+
 #controles {
+    width: 100%;
+
     display: flex;
     justify-content: center;
     align-items: center;
-    gap: 100px;
+
+    gap: 80px;
+
     margin-top: 25px;
+
     touch-action: none;
     user-select: none;
+}
+
+.movimento {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.movimento > button {
+    margin-bottom: 5px;
+}
+
+.linha-botoes {
+    display: flex;
+    gap: 5px;
 }
 
 #controles button {
     width: 60px;
     height: 60px;
+
+    padding: 0;
+
     border: 2px solid rgb(0, 217, 255);
     border-radius: 10px;
+
     background: rgb(29, 45, 58);
     color: rgb(0, 217, 255);
+
     font-size: 24px;
     font-weight: bold;
+
     cursor: pointer;
+
     touch-action: none;
     user-select: none;
+}
+
+#atirar {
+    width: 130px !important;
+    height: 65px !important;
+
+    font-size: 18px !important;
 }
 
 #controles button:active {
@@ -87,33 +204,17 @@ canvas {
     color: rgb(16, 24, 32);
 }
 
-.movimento {
-    text-align: center;
-}
-
-.movimento > button {
-    display: block;
-    margin: 0 auto 5px;
-}
-
-.movimento div {
-    display: flex;
-    gap: 5px;
-}
-
-#atirar {
-    width: 120px !important;
-    height: 70px !important;
-    font-size: 18px !important;
-}
-
 .instrucoes {
-    margin-top: 20px;
+    margin-top: 18px;
+
     color: rgb(150, 150, 150);
+
     font-size: 14px;
+    line-height: 1.5;
 }
 
 @media (max-width: 600px) {
+
     body {
         padding: 10px 5px;
     }
@@ -123,13 +224,24 @@ canvas {
     }
 
     #informacoes {
-        gap: 15px;
-        font-size: 14px;
+        gap: 10px;
+    }
+
+    .informacao {
+        min-width: 75px;
+        padding: 7px 10px;
+    }
+
+    .informacao span {
+        font-size: 12px;
+    }
+
+    .informacao strong {
+        font-size: 18px;
     }
 
     #controles {
-        gap: 70px;
-        margin-top: 25px;
+        gap: 45px;
     }
 
     #controles button {
@@ -138,9 +250,19 @@ canvas {
     }
 
     #atirar {
-        width: 120px !important;
-        height: 65px !important;
+        width: 115px !important;
+        height: 60px !important;
+
         font-size: 16px !important;
+    }
+
+    #reset {
+        width: 115px;
+        height: 42px;
+    }
+
+    #mensagem {
+        font-size: 25px;
     }
 
     .instrucoes {
